@@ -1,0 +1,28 @@
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   name: dara-test-file-vite-d4c9f-https-ingress
+   namespace: dara-test-file-vite-d4c9f
+   annotations:
+     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+     nginx.ingress.kubernetes.io/use-regex: "true"
+     nginx.ingress.kubernetes.io/proxy-body-size: 8m    
+     nginx.ingress.kubernetes.io/rewrite-target: /
+ spec:
+   ingressClassName: nginx
+   tls:
+     - hosts:
+         - tan-dara9280-dara-test-file-vite.assessify.org
+       secretName: dara-test-file-vite-d4c9f-secret-tls
+   rules:
+     - host: tan-dara9280-dara-test-file-vite.assessify.org
+       http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: dara-test-file-vite-d4c9f-service
+                 port:
+                   number: 8208
+ 
